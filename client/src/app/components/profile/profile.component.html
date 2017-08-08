@@ -1,0 +1,175 @@
+<div class="container">
+  <div>
+
+  <h1 class="page-header"><span><i style="font-size: 70%" class="glyphicon glyphicon-briefcase"></i></span>&nbsp;{{name}}'s profile</h1>
+  <div style="margin-top: 50px; margin-bottom: 50px" class="row">
+    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+        <div class="avatar-container a5container">
+            <img (click)="onClickOpenModalImage('id','img-avatar')" id="img-avatar" alt="Default avatar" title="Click to view" width="250" height="250" class="ava5" >
+        </div>
+          <br>
+          <br>
+          <br>
+          <form>
+            <button class="btn btn-link" data-toggle="popover" style="width:250px;position:relative;bottom:97px;color:#fff;font-size:130%;background: rgba(12,13,14,0.6)" (click)='openPopover()'>{{changeAvatar}}</button>
+             <div style="position:absolute;bottom:-80px;" id="popover-content" *ngIf="isOpenPopover" [@verticalSlide]='state'>
+               <span *ngIf="typeAccount == 'Facebook' || typeAccount == 'Google'">
+               <img id="social-small-image" src="{{imageSocialUrl}}" alt="Default avatar" title="User Avatar" width="40" height="40" class="ava5">&nbsp;&nbsp;&nbsp;
+               <button *ngIf="typeAccount=='Facebook'" (click)="setAvaSocial()" style="width:194px;height:40px" class="btn btn-primary"><i style="font-size:20px;margin-right:10px" class="fa fa-facebook"></i> Facebook avatar </button>
+               <button *ngIf="typeAccount=='Google'" (click)="setAvaSocial()" style="width:194px;height:40px" class="btn btn-danger"><i style="font-size:20px;margin-right:10px" class="fa fa-google-plus"></i> Google avatar </button>
+               </span>
+               <br>
+               <img id="local-small-image" style="margin-top:10px" src={{imageLocalArray[this.toElemIndex(this.displayImageID)].path_local}} alt="Default avatar" title="User Avatar" width="40" height="40" class="ava5">&nbsp;&nbsp;&nbsp;
+               <button (click)="openChangeLocalAvatarModal()" style="width:194px;height:40px;margin-top:10px" class="btn btn-success"><i style="font-size:20px;margin-right:10px" class="fa fa-picture-o"></i>Local avatar</button>
+               <br>
+               <input type="file" name="myAvatar" id="file-1" class="inputfile inputfile-3" data-multiple-caption="{count} files selected" multiple (change)="uploadNewAvatar($event)" />
+               <label style="font-size:19px;margin:15px 10px 10px 24px;padding:0px" for="file-1">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                   <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                 </svg> <span>Update new avatar</span></label>
+             </div>
+             <div id="viewAvatarModal" class="modalImage">
+             <!-- The Close Button -->
+             <span class="close" onclick="document.getElementById('viewAvatarModal').style.display='none'">&times;</span>
+             <!-- Modal Content (The Image) -->
+             <img class="modal-content" id="img01">
+             <!-- Modal Caption (Image Text) -->
+             <div id="caption">Your avatar</div>
+           </div>
+          </form>
+    </div>
+    <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+      <ul class="list-group">
+      	<li class="list-group-item">Name: {{name}}</li>
+        <li class="list-group-item">Username: {{username}}</li>
+        <li class="list-group-item">Email: {{email}}</li>
+        <li class="list-group-item">Type of account: {{role}}</li>
+      </ul>
+    </div>
+  </div>
+  <label style="margin-top:40px" class="lead">
+      <a style="text-decoration: none" href data-toggle="modal" (click)="openEditProfileModal()" title="Edit"><i class="fa fa-pencil fa-fw"></i>&nbsp;<strong>Edit your profile</strong></a>
+  </label>
+  <br>
+  <label *ngIf="username" class="lead">
+      <a style="text-decoration: none" href data-toggle="modal" (click)="openChangePasswordModal()" title="Change password"><i class="fa fa-unlock fa-fw"></i>&nbsp;<strong>Change password</strong></a>
+  </label>
+  <div id="editProfileModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title"><strong>Edit your profile</strong></h3>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="form-group clearfix">
+                <div class="col-sm-3"> <label><i class="glyphicon glyphicon-tag"></i>&nbsp;&nbsp;Name</label></div>
+                <div class="col-sm-9"> <input type="text" title="Name" [(ngModel)]="tempName" class="form-control" name="name" value={{tempName}}></div>
+              </div>
+              <div class="form-group clearfix">
+                <div class="col-sm-3"> <label><i class="glyphicon glyphicon-envelope"></i>&nbsp;&nbsp;Email</label></div>
+                <div class="col-sm-9"> <input type="text" title="Email" [(ngModel)]="tempEmail" class="form-control" name="email" value={{tempEmail}}></div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="editProfile()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="changePasswordModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title"><strong>Change password</strong></h3>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="form-group clearfix">
+                <div class="col-sm-3"> <label><i class="fa fa-user-secret"></i>&nbsp;&nbsp;Current Password</label></div>
+                <div class="col-sm-9"> <input type="password" title="Current Password" [(ngModel)]="password" class="form-control" name="name" (blur)="onBlurPassword()"></div>
+                <div id="password" style="font-size: 90%;color: red;margin-left:27%;margin-top:50px">
+                    <i class="fa fa-exclamation-triangle"></i> {{mesErrPassword}}
+                </div>
+              </div>
+              <div class="form-group clearfix">
+                <div class="col-sm-3"> <label><i class="fa fa-lock"></i>&nbsp;&nbsp;New Password</label></div>
+                <div class="col-sm-9"> <input type="password" title="New password" [(ngModel)]="newPassword" class="form-control" name="email" (blur)="onBlurNewPassword()"></div>
+                <div id="newPassword" style="font-size: 90%;color: red;margin-left:27%;margin-top:50px">
+                    <i class="fa fa-exclamation-triangle"></i> {{mesErrNewPassword}}
+                </div>
+              </div>
+              <div class="form-group clearfix">
+                <div class="col-sm-3"> <label><i class="fa fa-lock"></i>&nbsp;&nbsp;Confirm Password</label></div>
+                <div class="col-sm-9"> <input type="password" title="Confirm Password" [(ngModel)]="confirmPassword" class="form-control" name="email" (blur)="onBlurConfirmPassword()"></div>
+                <div id="confirmPassword" style="font-size: 90%;color: red;margin-left:27%;margin-top:50px">
+                    <i class="fa fa-exclamation-triangle"></i> {{mesErrConfirmPassword}}
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" (click)="changePassword()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="changeLocalAvatarModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title"><strong>Manage your avatar</strong></h3>
+        </div>
+        <div class="modal-body">
+        <form>
+
+          <div class="form-group clearfix">
+            <a class="prev" (click)="onClickPrevButton()">&#10094;</a>
+            <td class="row" style="text-align: center;"  *ngFor = "let image of displayImageLocalArray; let i = index"  >
+                <tr> <img (dblclick)="onClickOpenModalImage('_index',i)" (click)="onClickChooseImage(i)" [attr._index]="i" style="margin-left: 15px; margin-right: -15px; cursor: pointer" id="img-avatar-choose" src={{image.path_local}} alt="Default avatar" title="Double click to view" width="150" height="150" class="ava5"> </tr>
+            </td>
+            <a class="next" (click)="onClickNextButton()">&#10095;</a>
+
+          </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" (click)="openConfirmModel()" >Delete</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onClickUpdateLocalAvatar()">Choose</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirmDeleteAvatar" class="modal" style="position: relative;top: -600px;font-size: 20px;" role="dialog">
+    <div class="modal-dialog" style="width: 400px" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title"><strong>Confirm Dialog</strong></h3>
+        </div>
+        <div class="modal-body">
+        <form>
+          <div class="form-group clearfix">
+            <p> Are you sure to delete it ?</p>
+          </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onClickDeleteAvatar()" >OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>

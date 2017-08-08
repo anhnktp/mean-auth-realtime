@@ -1,0 +1,61 @@
+<div class="container">
+<h2 class="page-header">Register</h2>
+<form (submit)="onRegisterSubmit()">
+  <div class="form-group">
+    <label><span><i class="glyphicon glyphicon-user"></i></span>&nbsp;&nbsp;Username</label>
+    <input id="txtUsername" title="Username" type="text" [(ngModel)]="username" name="username" (blur)="onBlurUsername()" class="form-control has-error">
+    <i hidden id="badUsername" style = "font-size: 130%; padding-top : 12px" class="fa fa-exclamation-triangle form-control-feedback"></i>
+    <i hidden id="goodUsername" style = "font-size: 130%; padding-top : 12px" class="fa fa-check form-control-feedback"></i>
+    <div style="font-size: 90%;color: red">
+        {{mesErrUsername}}
+    </div>
+    <div style="font-size: 90%;color: green">
+        {{mesSucUsername}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label><span><i class="glyphicon glyphicon-tag"></i></span>&nbsp;&nbsp;Name</label>
+    <input id="txtName" title="name" type="text" [(ngModel)]="name" name="name" (blur)="onBlurName()" class="form-control">
+    <i hidden id="badName" style = "font-size: 130%; padding-top : 12px" class="fa fa-exclamation-triangle form-control-feedback"></i>
+    <i hidden id="goodName" style = "font-size: 130%; padding-top : 12px" class="fa fa-check form-control-feedback"></i>
+    <div style="font-size: 90%;color: red">
+        {{mesErrName}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label><span><i class="glyphicon glyphicon-envelope"></i></span>&nbsp;&nbsp;Email</label>
+    <input id="txtEmail" title="Email" type="text" [(ngModel)]="email" name="email" (blur)="onBlurEmail()" class="form-control" >
+    <i hidden id="badEmail" style = "font-size: 130%; padding-top : 12px" class="fa fa-exclamation-triangle form-control-feedback"></i>
+    <i hidden id="goodEmail" style = "font-size: 130%; padding-top : 12px" class="fa fa-check form-control-feedback"></i>
+    <div style="font-size: 90%;color: red">
+        {{mesErrEmail}}
+    </div>
+    <div style="font-size: 90%;color: green">
+        {{mesSucEmail}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label><span><i hidden class="glyphicon glyphicon-lock"></i></span>&nbsp;&nbsp;Password</label>
+    <input id="txtPassword" title="Password" type="password" [(ngModel)]="password" (blur)="onBlurPassword()" name="password" class="form-control">
+    <i hidden id="badPassword" style = "font-size: 130%; padding-top : 12px" class="fa fa-exclamation-triangle form-control-feedback"></i>
+    <i hidden id="goodPassword" style = "font-size: 130%; padding-top : 12px" class="fa fa-check form-control-feedback"></i>
+    <div style="font-size: 90%;color: red">
+        {{mesErrPassword}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label><span><i class="glyphicon glyphicon-lock"></i></span>&nbsp;&nbsp;Confirm password</label>
+    <input id="txtPassword2" title="Confirm password" type="password" [(ngModel)]="password2" (blur)="onBlurPassword2()" name="password2" class="form-control">
+    <i hidden id="badPassword2" style = "font-size: 130%; padding-top : 12px" class="fa fa-exclamation-triangle form-control-feedback"></i>
+    <i hidden id="goodPassword2" style = "font-size: 130%; padding-top : 12px" class="fa fa-check form-control-feedback"></i>
+    <div style="font-size: 90%;color: red">
+        {{mesErrPassword2}}
+    </div>
+  </div>
+<input type="submit" class="btn btn-primary" value="Submit">
+<br />
+<br />
+<h4>Already have an account? <a [routerLink]="['/login']">Login</a></h4>
+<h4>Or go <a [routerLink]="['/']">home</a></h4>
+</form>
+</div>

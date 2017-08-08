@@ -1,0 +1,18 @@
+<div class="container">
+  <h2 class="page-header">Forgot Password</h2>
+  <form>
+    <div class="form-group">
+    <label><span><i class="glyphicon glyphicon-envelope"></i></span>&nbsp;&nbsp;Your email </label>
+    <input id="txtEmail" title="Email" type="text" [(ngModel)]="email" name="email" (blur)="onBlurEmail()" class="form-control" placeholder="Enter your email and we'll send your reset password...">
+    <i hidden id="badEmail" style = "font-size: 130%; padding-top : 12px" class="fa fa-exclamation-triangle form-control-feedback"></i>
+    <i hidden id="goodEmail" style = "font-size: 130%; padding-top : 12px" class="fa fa-check form-control-feedback"></i>
+    <div style="font-size: 90%;color: red">
+        {{mesErrEmail}}
+    </div>
+    <div style="font-size: 90%;color: green">
+        {{mesSucEmail}}
+    </div>
+    </div>
+    <button class="btn btn-success" (click)="onForgotSubmit()">Reset password</button>
+  </form>
+</div>
